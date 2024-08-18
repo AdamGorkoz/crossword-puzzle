@@ -34,135 +34,162 @@
   <div id="crossword"></div>
   <div class="clues">
     <h3>מאוזן</h3>
-    <ol id="across-clues">
-      <!-- Across clues will be inserted here -->
-    </ol>
+    <ol id="across-clues"></ol>
     <h3>מאונך</h3>
-    <ol id="down-clues">
-      <!-- Down clues will be inserted here -->
-    </ol>
+    <ol id="down-clues"></ol>
   </div>
 
 <script>
-    const acrossClues = [
-      '2. המכשיר שמסמל את מדינת הישראל',
-      '8. מכשיר שנמצא בכל בית',
-      // Add all across clues
-    ];
-    
-    const downClues = [
-      '1. כלי נגינה מסורתי',
-      '3. מכשיר חשמלי נמצא במטבח',
-      // Add all down clues
-    ];
+const acrossClues = [
+  { text: 'סמל איסלאמי', startPosition: [1, 14], endPosition: [3, 1], color: '#8B0000' }, // dark red
+  { text: 'אוסף החדית׳ים המהימן', startPosition: [2, 8], endPosition: [1, 3], color: '#00008B' }, // dark blue
+  { text: 'בהמת המדבר', startPosition: [3, 11], endPosition: [1, 3], color: '#006400' }, // dark green
+  { text: 'מתרגם הקוראן לעברית (ש״מ)', startPosition: [4, 17], endPosition: [1, 3], color: '#4B0082' }, // indigo
+  { text: 'מיסודות האסלאם', startPosition: [5, 7], endPosition: [1, 3], color: '#8B4513' }, // saddle brown
+  { text: 'חודש הצום', startPosition: [6, 13], endPosition: [1, 3], color: '#FF8C00' }, // dark orange
+  { text: 'אבי הנביא מוחמד', startPosition: [7, 7], endPosition: [1, 3], color: '#FFD700' }, // gold (stays the same) 
+  { text: 'החודש הראשון בלוח המוסלמי', startPosition: [8, 16], endPosition: [1, 3], color: '#FF1493' }, // deep pink
+  { text: 'הסורה השנייה בקוראן', startPosition: [9, 19], endPosition: [1, 3], color: '#32CD32' }, // green (stays the same)
+  { text: 'מקריא קוראן מפורסם (ש״מ)', startPosition: [9, 8], endPosition: [1, 3], color: '#696969' }, // dark gray
+  { text: 'החודש שבו חג אל-פיטר', startPosition: [10, 14], endPosition: [1, 3], color: '#008080' }, // dark cyan (stays the same)
+  { text: 'נביא האסלאם', startPosition: [12, 4], endPosition: [1, 3], color: '#00008B' }, // dark blue (same as above)
+  { text: 'אחד הח׳ליפים (ש״מ)', startPosition: [13, 15], endPosition: [1, 3], color: '#9400D3' }, // dark violet
+  { text: 'אימאם מפורסם במסגד מכה (ש״מ)', startPosition: [15, 13], endPosition: [1, 3], color: '#4B0082' }, // indigo
+  { text: 'הספר הקדוש למוסלמים', startPosition: [15, 7], endPosition: [1, 3], color: '#8B4513' }, // saddle brown (same as above)
+  { text: 'הראשון שהתאסלם מהילדים (ש״פ)', startPosition: [16, 19], endPosition: [1, 3], color: '#FF8C00' }, // dark orange (same as above)
+  { text: 'לוחם מוסלמי מפורסם', startPosition: [18, 19], endPosition: [1, 3], color: '#FFD700' }, // gold (stays the same)
+  { text: 'הבהמה עליה רכב הנביא במסע הלילי', startPosition: [18, 6], endPosition: [1, 3], color: '#FF1493' }, // deep pink (same as above)
+];
 
-    const grid = [
-      ['1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
-      ['1', ' ', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1', '1', '1', '1', '1'],
-      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1', '1', ' ', '1', '1', '1', '1', '1'],
-      ['1', ' ', '1', ' ', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', '1', '1'],
-      ['1', '1', '1', ' ', '1', ' ', '1', '1', '1', '1', ' ', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1'],
-      ['1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', ' ', '1', ' ', '1', '1', '1'],
-      ['1', '1', ' ', '1', '1', ' ', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', '1', ' '],
-      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', '1', '1', ' ', '1', '1', ' '],
-      ['1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' '],
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', '1', ' ', '1', ' ', ' ', ' ', ' '],
-      ['1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1', '1'],
-      [' ', '1', ' ', '1', '1', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1'],
-      [' ', ' ', ' ', ' ', ' ', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1'],
-      [' ', '1', ' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1'],
-      [' ', '1', '1', '1', ' ', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1'],
-      [' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', ' ', '1', '1'],
-      ['1', '1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', ' ', ' ', ' '],
-      ['1', '1', '1', ' ', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', '1'],
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-      ['1', '1', '1', ' ', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', '1'],
-      // Add the complete grid here
-    ];
 
-    function createGrid() {
-      const crossword = document.getElementById('crossword');
-      const savedData = JSON.parse(localStorage.getItem('crosswordData')) || {};
-      crossword.innerHTML = '';
 
-      for (const [rowIndex, row] of grid.entries()) {
-        for (const [colIndex, cell] of row.entries()) {
-          const cellElement = document.createElement('div');
-          cellElement.className = 'cell';
-          if (cell === '1') {
-            cellElement.classList.add('black-cell');
-          } else {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.maxLength = '1';
-            input.style.width = '100%';
-            input.style.height = '100%';
-            input.style.border = 'none';
-            input.style.textAlign = 'center';
+const downClues = [
+  { text: 'יהודייה אותה נשא הביא (ש״פ)', startPosition: [0, 1], endPosition: [1, 3], color: '#228B22' }, // forest green
+  { text: 'השהידה הראשונה באסלאם (ש״פ)', startPosition: [1, 14], endPosition: [1, 3], color: '#8B0000' }, // dark red (same as above)
+  { text: 'מנשות הנביא', startPosition: [1, 3], endPosition: [1, 3], color: '#4682B4' }, // steel blue
+  { text: 'מנביאי השקר שהופיעו עוד בתקופת מוחמד', startPosition: [3, 16], endPosition: [1, 3], color: '#DB7093' }, // pale violet red
+  { text: 'גומחה במסגדים', startPosition: [3, 10], endPosition: [1, 3], color: '#DAA520' }, // golden rod
+  { text: 'מחברי הנביא ששמו מופיע בקוראן', startPosition: [4, 5], endPosition: [1, 3], color: '#A9A9A9' }, // dark gray (same as above)
+  { text: 'באר הנמצאת סמוך לכעבה', startPosition: [5, 12], endPosition: [1, 3], color: '#008080' }, // dark cyan (same as above)
+  { text: 'צמח בקוראן', startPosition: [6, 19], endPosition: [1, 3], color: '#9400D3' }, // dark violet (same as above)
+  { text: 'הסורה הפותחת בקוראן', startPosition: [6, 2], endPosition: [1, 3], color: '#FF4500' }, // orange red
+  { text: 'המדינה הראשונה אליה היגרו חברי הנביא', startPosition: [8, 14], endPosition: [1, 3], color: '#4682B4' }, // steel blue (same as above)
+  { text: 'מפקד ששחרר את אל-אקצה מהצלבנים', startPosition: [9, 11], endPosition: [1, 3], color: '#CD5C5C' }, // indian red
+  { text: 'דרכו של הנביא מוחמד', startPosition: [11, 8], endPosition: [1, 3], color: '#800080' }, // purple
+  { text: 'אשתו הראשונה של הנביא מוחמד', startPosition: [11, 0], endPosition: [1, 3], color: '#A52A2A' }, // brown (stays the same)
+  { text: 'שם המערה בה שהו הביא וחברו בהיג׳רה', startPosition: [12, 4], endPosition: [1, 3], color: '#00008B' }, // dark blue (same as above)
+  { text: 'במת הדרשן במסגד ביום השישי', startPosition: [12, 14], endPosition: [1, 3], color: '#DB7093' }, // pale violet red (same as above)
+  { text: 'כיוון תפילת המוסלמים', startPosition: [15, 17], endPosition: [1, 3], color: '#DAA520' }, // golden rod (same as above)
+  { text: 'החודש שלפני רמדאן', startPosition: [15, 13], endPosition: [1, 3], color: '#4B0082' }, // indigo
+  { text: 'קרב מפורסם שהתרחש ליד אל-מדינה', startPosition: [15, 3], endPosition: [1, 3], color: '#008080' }, // dark cyan (same as above)
+  { text: 'המסגד הקובייתי הקדוש במכה', startPosition: [16, 15], endPosition: [1, 3], color: '#A9A9A9' }, // dark gray (same as above)
+  { text: 'קרב מפורסם בהיסטורה האיסלאמית', startPosition: [17, 5], endPosition: [1, 3], color: '#228B22' }, // forest green (same as above)
+  { text: 'בע״ח בקוראן', startPosition: [17, 8], endPosition: [1, 3], color: '#B22222' } // fire brick
+];
 
-            const cellKey = `${rowIndex}-${colIndex}`;
-            if (savedData[cellKey]) {
-              input.value = savedData[cellKey];
-            }
 
-            input.addEventListener('input', () => {
-              savedData[cellKey] = input.value;
-              localStorage.setItem('crosswordData', JSON.stringify(savedData));
-              checkCompletion(rowIndex, colIndex);
-            });
 
-            cellElement.appendChild(input);
-          }
-          crossword.appendChild(cellElement);
+const grid = [
+  ['1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
+  ['1', ' ', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1', '1', '1', '1', '1'],
+  ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1', '1', ' ', '1', '1', '1', '1', '1'],
+  ['1', ' ', '1', ' ', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', '1', '1'],
+  ['1', '1', '1', ' ', '1', ' ', '1', '1', '1', '1', ' ', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1'],
+  ['1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', ' ', '1', ' ', '1', '1', '1'],
+  ['1', '1', ' ', '1', '1', ' ', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', '1', ' '],
+  ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', '1', '1', ' ', '1', '1', ' '],
+  ['1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', '1', ' ', '1', ' ', ' ', ' ', ' '],
+  ['1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1', '1'],
+  [' ', '1', ' ', '1', '1', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1'],
+  [' ', ' ', ' ', ' ', ' ', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1'],
+  [' ', '1', ' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1'],
+  [' ', '1', '1', '1', ' ', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1'],
+  [' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', ' ', '1', '1'],
+  ['1', '1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', ' ', ' ', ' '],
+  ['1', '1', '1', ' ', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', '1'],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  ['1', '1', '1', ' ', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', '1'],
+];
+
+function createGrid() {
+  const crossword = document.getElementById('crossword');
+  const savedData = JSON.parse(localStorage.getItem('crosswordData')) || {};
+  crossword.innerHTML = '';
+
+  for (const [rowIndex, row] of grid.entries()) {
+    for (const [colIndex, cell] of row.entries()) {
+      const cellElement = document.createElement('div');
+      cellElement.className = 'cell';
+      if (cell === '1') {
+        cellElement.classList.add('black-cell');
+      } else {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = '1';
+        input.style.width = '100%';
+        input.style.height = '100%';
+        input.style.border = 'none';
+        input.style.textAlign = 'center';
+
+        const cellKey = `${rowIndex}-${colIndex}`;
+        if (savedData[cellKey]) {
+          input.value = savedData[cellKey];
         }
+
+        input.addEventListener('input', () => {
+          savedData[cellKey] = input.value;
+          localStorage.setItem('crosswordData', JSON.stringify(savedData));
+        });
+
+        // Add highlighting for the clues
+        acrossClues.forEach(clue => {
+          if (clue.startPosition[0] === rowIndex && clue.startPosition[1] == colIndex) {
+            input.style.backgroundColor = clue.color;
+          }
+        });
+
+        downClues.forEach(clue => {
+          if (clue.startPosition[1] === colIndex && clue.startPosition[0] == rowIndex) {
+            input.style.backgroundColor = clue.color;
+          }
+        });
+
+        cellElement.appendChild(input);
       }
+      crossword.appendChild(cellElement);
     }
+  }
+}
 
-    function checkCompletion(rowIndex, colIndex) {
-      const checkRow = grid[rowIndex].every((cell, i) => cell === '1' || document.querySelector(`#crossword div:nth-child(${rowIndex * grid[0].length + i + 1}) input`).value !== '');
-      const checkCol = grid.every((row, i) => row[colIndex] === '1' || document.querySelector(`#crossword div:nth-child(${i * grid[0].length + colIndex + 1}) input`).value !== '');
+function populateClues() {
+  const acrossCluesElement = document.getElementById('across-clues');
+  const downCluesElement = document.getElementById('down-clues');
 
-      if (checkRow) {
-        strikeOutClue('across', rowIndex);
-      }
-      if (checkCol) {
-        strikeOutClue('down', colIndex);
-      }
-    }
+  acrossCluesElement.innerHTML = '';
+  downCluesElement.innerHTML = '';
 
-    function strikeOutClue(type, index) {
-      const clueElement = document.getElementById(`${type}-clues`).children[index];
-      if (clueElement) {
-        clueElement.style.textDecoration = 'line-through';
-      }
-    }
+  acrossClues.forEach((clue, index) => {
+    const li = document.createElement('li');
+    li.textContent = clue.text;
+    li.style.color = clue.color;
+    li.setAttribute('data-clue', 'across');
+    li.setAttribute('data-index', index);
+    acrossCluesElement.appendChild(li);
+  });
 
-    function populateClues() {
-      const acrossCluesElement = document.getElementById('across-clues');
-      const downCluesElement = document.getElementById('down-clues');
+  downClues.forEach((clue, index) => {
+    const li = document.createElement('li');
+    li.textContent = clue.text;
+    li.style.color = clue.color;
+    li.setAttribute('data-clue', 'down');
+    li.setAttribute('data-index', index);
+    downCluesElement.appendChild(li);
+  });
+}
 
-      acrossCluesElement.innerHTML = '';
-      downCluesElement.innerHTML = '';
-
-      acrossClues.forEach((clue, index) => {
-        const li = document.createElement('li');
-        li.textContent = clue;
-        li.setAttribute('data-clue', 'across');
-        li.setAttribute('data-index', index);
-        acrossCluesElement.appendChild(li);
-      });
-
-      downClues.forEach((clue, index) => {
-        const li = document.createElement('li');
-        li.textContent = clue;
-        li.setAttribute('data-clue', 'down');
-        li.setAttribute('data-index', index);
-        downCluesElement.appendChild(li);
-      });
-    }
-
-    createGrid();
-    populateClues();
+createGrid();
+populateClues();
 </script>
 
 </body>
