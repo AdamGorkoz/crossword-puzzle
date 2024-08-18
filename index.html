@@ -45,7 +45,7 @@
 
 <script>
     const acrossClues = [
-      '4. המכשיר שמסמל את מדינת הישראל',
+      '2. המכשיר שמסמל את מדינת הישראל',
       '8. מכשיר שנמצא בכל בית',
       // Add all across clues
     ];
@@ -116,32 +116,17 @@
           crossword.appendChild(cellElement);
         }
       }
-
-      // After building the grid, check all rows and columns for completion
-      checkAllLinesForCompletion();
-    }
-
-    function checkAllLinesForCompletion() {
-      for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
-        checkCompletion(rowIndex, null); // Check row
-      }
-      for (let colIndex = 0; colIndex < grid[0].length; colIndex++) {
-        checkCompletion(null, colIndex); // Check column
-      }
     }
 
     function checkCompletion(rowIndex, colIndex) {
-      if (rowIndex !== null) {
-        const checkRow = grid[rowIndex].every((cell, i) => cell === '1' || document.querySelector(`#crossword div:nth-child(${rowIndex * grid[0].length + i + 1}) input`).value !== '');
-        if (checkRow) {
-          strikeOutClue('across', rowIndex);
-        }
+      const checkRow = grid[rowIndex].every((cell, i) => cell === '1' || document.querySelector(`#crossword div:nth-child(${rowIndex * grid[0].length + i + 1}) input`).value !== '');
+      const checkCol = grid.every((row, i) => row[colIndex] === '1' || document.querySelector(`#crossword div:nth-child(${i * grid[0].length + colIndex + 1}) input`).value !== '');
+
+      if (checkRow) {
+        strikeOutClue('across', rowIndex);
       }
-      if (colIndex !== null) {
-        const checkCol = grid.every((row, i) => row[colIndex] === '1' || document.querySelector(`#crossword div:nth-child(${i * grid[0].length + colIndex + 1}) input`).value !== '');
-        if (checkCol) {
-          strikeOutClue('down', colIndex);
-        }
+      if (checkCol) {
+        strikeOutClue('down', colIndex);
       }
     }
 
