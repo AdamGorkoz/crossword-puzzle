@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>תשבץ איסלאמי</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #crossword {
+      display: grid;
+      grid-template-columns: repeat(20, 30px);
+      gap: 2px;
+    }
+    .cell {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      text-align: center;
+      line-height: 30px;
+      font-size: 18px;
+    }
+    .black-cell {
+      background-color: #5c5b5b;
+    }
+    .clues {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>תשבץ איסלאמי</h1>
+  <div id="crossword"></div>
+  <div class="clues">
+    <h3>מאוזן</h3>
+    <ol id="across-clues">
+      <!-- Across clues will be inserted here -->
+    </ol>
+    <h3>מאונך</h3>
+    <ol id="down-clues">
+      <!-- Down clues will be inserted here -->
+    </ol>
+  </div>
+
+<script>
+    const acrossClues = [
+      '4. המכשיר שמסמל את מדינת הישראל',
+      '8. מכשיר שנמצא בכל בית',
+      // Add all across clues
+    ];
+    
+    const downClues = [
+      '1. כלי נגינה מסורתי',
+      '3. מכשיר חשמלי נמצא במטבח',
+      // Add all down clues
+    ];
+
+    const grid = [
+      ['1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'],
+      ['1', ' ', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1', '1', '1', '1', '1'],
+      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1', '1', ' ', '1', '1', '1', '1', '1'],
+      ['1', ' ', '1', ' ', '1', '1', '1', '1', '1', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', '1', '1'],
+      ['1', '1', '1', ' ', '1', ' ', '1', '1', '1', '1', ' ', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1'],
+      ['1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', ' ', '1', ' ', '1', '1', '1'],
+      ['1', '1', ' ', '1', '1', ' ', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', '1', ' '],
+      ['1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', ' ', '1', '1', '1', ' ', '1', '1', ' '],
+      ['1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', ' ', '1', '1', ' ', '1', ' ', ' ', ' ', ' '],
+      ['1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1', '1'],
+      [' ', '1', ' ', '1', '1', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', '1'],
+      [' ', ' ', ' ', ' ', ' ', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1'],
+      [' ', '1', ' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', '1'],
+      [' ', '1', '1', '1', ' ', '1', '1', '1', ' ', '1', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', '1'],
+      [' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', ' ', ' ', '1', '1', '1', ' ', '1', '1'],
+      ['1', '1', '1', ' ', '1', '1', '1', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', ' ', ' ', ' '],
+      ['1', '1', '1', ' ', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', '1'],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      ['1', '1', '1', ' ', '1', ' ', '1', '1', ' ', '1', '1', '1', '1', ' ', '1', ' ', '1', ' ', '1', '1'],
+      // Add the complete grid here
+    ];
+
+    function createGrid() {
+      const crossword = document.getElementById('crossword');
+      const savedData = JSON.parse(localStorage.getItem('crosswordData')) || {};
+      crossword.innerHTML = '';
+
+      for (const [rowIndex, row] of grid.entries()) {
+        for (const [colIndex, cell] of row.entries()) {
+          const cellElement = document.createElement('div');
+          cellElement.className = 'cell';
+          if (cell === '1') {
+            cellElement.classList.add('black-cell');
+          } else {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.maxLength = '1';
+            input.style.width = '100%';
+            input.style.height = '100%';
+            input.style.border = 'none';
+            input.style.textAlign = 'center';
+
+            const cellKey = `${rowIndex}-${colIndex}`;
+            if (savedData[cellKey]) {
+              input.value = savedData[cellKey];
+            }
+
+            input.addEventListener('input', () => {
+              savedData[cellKey] = input.value;
+              localStorage.setItem('crosswordData', JSON.stringify(savedData));
+              checkCompletion(rowIndex, colIndex);
+            });
+
+            cellElement.appendChild(input);
+          }
+          crossword.appendChild(cellElement);
+        }
+      }
+    }
+
+    function checkCompletion(rowIndex, colIndex) {
+      const checkRow = grid[rowIndex].every((cell, i) => cell === '1' || document.querySelector(`#crossword div:nth-child(${rowIndex * grid[0].length + i + 1}) input`).value !== '');
+      const checkCol = grid.every((row, i) => row[colIndex] === '1' || document.querySelector(`#crossword div:nth-child(${i * grid[0].length + colIndex + 1}) input`).value !== '');
+
+      if (checkRow) {
+        strikeOutClue('across', rowIndex);
+      }
+      if (checkCol) {
+        strikeOutClue('down', colIndex);
+      }
+    }
+
+    function strikeOutClue(type, index) {
+      const clueElement = document.getElementById(`${type}-clues`).children[index];
+      if (clueElement) {
+        clueElement.style.textDecoration = 'line-through';
+      }
+    }
+
+    function populateClues() {
+      const acrossCluesElement = document.getElementById('across-clues');
+      const downCluesElement = document.getElementById('down-clues');
+
+      acrossCluesElement.innerHTML = '';
+      downCluesElement.innerHTML = '';
+
+      acrossClues.forEach((clue, index) => {
+        const li = document.createElement('li');
+        li.textContent = clue;
+        li.setAttribute('data-clue', 'across');
+        li.setAttribute('data-index', index);
+        acrossCluesElement.appendChild(li);
+      });
+
+      downClues.forEach((clue, index) => {
+        const li = document.createElement('li');
+        li.textContent = clue;
+        li.setAttribute('data-clue', 'down');
+        li.setAttribute('data-index', index);
+        downCluesElement.appendChild(li);
+      });
+    }
+
+    createGrid();
+    populateClues();
+</script>
+
+</body>
+</html>
